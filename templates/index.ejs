@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('./_blocks/head', { siteTitle: themeConfig.siteName }) %>
+    <%- include('./_blocks/head', { siteTitle: themeConfig.siteName, nowHost: '' }) %>
   </head>
   <body>
     <div id="app" class="main">
 
-      <%- include('./_blocks/sidebar') %>
+      <%- include('./_blocks/sidebar', { nowHost: '' }) %>
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <% posts.forEach(function(post) { %>
+            <% post.link = post.link.replace('http://localhost:4000/',''); %>
+            <% post.link += post.link.indexOf('htm') > 0 ? '' : 'index.html'; %>
             <article class="post-item">
               <div class="left">
-                <a href="<%= post.link %>">
-                  <h2 class="post-title"><%= post.title %></h2>
-                </a>
+                <h2 class="post-title"><a title="<%= post.title %>" href="<%= post.link %>">
+                  <%= post.title %>
+                </a></h2>
                 <div class="post-date">
                   <%= post.dateFormat %>
                 </div>
                 <div class="post-abstract">
                   <%- post.abstract %>
                 </div>
+                <% if (post.tags.length > 0) { %>
+                  <div class="tag-container">
+                    <% post.tags.forEach(function(tag, index) { %>
+                      <% tag.link = tag.link.replace('http://localhost:4000/',''); %>
+                      <% tag.link += tag.link.indexOf('htm') > 0 ? '' : '/index.html'; %>
+                      <a href="../../<%= tag.link %>" title="<%= tag.name %>" class="tag">
+                        <%= tag.name %>
+                      </a>
+                    <% }); %>
+                  </div>
+                <% } %>
               </div>
               <% if (themeConfig.showFeatureImage && post.feature) { %>
+                <% post.feature = post.feature.replace('http://localhost:4000/',''); %>
                 <a class="right" href="<%= post.link %>">
                   <div class="feature-container" style="background-image: url('<%= post.feature %>')">
                   </div>

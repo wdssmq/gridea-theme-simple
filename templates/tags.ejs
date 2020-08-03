@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('./_blocks/head', { siteTitle: `标签列表 | ${themeConfig.siteName}` }) %>
+    <%- include('./_blocks/head', { siteTitle: `标签列表 | ${themeConfig.siteName}`, nowHost: '../' }) %>
   </head>
   <body>
     <div id="app" class="main">
 
-      <%- include('./_blocks/sidebar') %>
+      <%- include('./_blocks/sidebar', { nowHost: '../' }) %>
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <h2 class="tag-list-title">标签列表</h2>
           <div class="tags-container">
             <% tags.forEach((tag) => { %>
-              <a class="tag" href="<%= tag.link %>"><%= tag.name %></a>
+              <% tag.link = tag.link.replace('http://localhost:4000/',''); %>
+              <% tag.link += tag.link.indexOf('htm') > 0 ? '' : 'index.html'; %>
+              <a class="tag" title="<%= tag.name %>" href="../<%= tag.link %>"><%= tag.name %></a>
             <% }); %>
           </div>
         </div>

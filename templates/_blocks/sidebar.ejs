@@ -1,8 +1,8 @@
 <div class="sidebar" :class="{ 'full-height': menuVisible }">
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
-      <a class="site-title-container" href="<%= themeConfig.domain %>">
-        <img src="<%= themeConfig.domain %>/images/avatar.png?v=<%= site.utils.now %>" class="site-logo">
+      <a class="site-title-container" title="<%= themeConfig.siteName %>" href="<%= nowHost %>index.html">
+        <img src="<%= nowHost %>images/avatar.png?v=<%= site.utils.now %>" class="site-logo">
         <h1 class="site-title"><%= themeConfig.siteName %></h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -16,7 +16,9 @@
             <%= menu.name %>
           </a>
         <% } else { %>
-          <a href="<%= menu.link %>" class="site-nav">
+          <% menu.link = menu.link.replace('http://localhost:4000/',''); %>
+          <% menu.link += menu.link.indexOf('.') > 0 ? '' : '/index.html'; %>
+          <a href="<%= nowHost %><%= menu.link %>" title="<%= menu.name %>" class="site-nav">
             <%= menu.name %>
           </a>
         <% } %>

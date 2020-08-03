@@ -2,7 +2,16 @@
   "name": "Simple",
   "version": "1.0.0",
   "author": "EryouHao",
+  "repository": "https://github.com/wdssmq/gridea-theme-simple",
   "customConfig": [
+    {
+      "name": "afterPost",
+      "label": "文章后显示的通用内容",
+      "group": "添加",
+      "value": "",
+      "type": "textarea",
+      "note": ""
+    },
     {
       "name": "sidebarWidth",
       "label": "菜单栏宽度",

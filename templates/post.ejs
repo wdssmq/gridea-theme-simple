@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('./_blocks/head', { siteTitle: `${post.title} | ${themeConfig.siteName}` }) %>
+    <%- include('./_blocks/head', { siteTitle: `${post.title} | ${themeConfig.siteName}`, nowHost: '../../' }) %>
   </head>
   <body>
     <div id="app" class="main">
 
-      <%- include('./_blocks/sidebar') %>
+      <%- include('./_blocks/sidebar', { nowHost: '../../' })%>
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
@@ -14,16 +14,19 @@
             <h2 class="post-title"><%= post.title %></h2>
             <div class="post-date"><%= post.dateFormat %></div>
             <% if (post.feature) { %>
-              <div class="feature-container" style="background-image: url('<%= post.feature %>')">
+              <div class="feature-container" style="background-image: url('../../<%= post.feature %>')">
               </div>
             <% } %>
             <div class="post-content">
               <%- post.content %>
+              <%- site.customConfig['afterPost'] %>
             </div>
             <% if (post.tags.length > 0) { %>
               <div class="tag-container">
                 <% post.tags.forEach(function(tag, index) { %>
-                  <a href="<%= tag.link %>" class="tag">
+                  <% tag.link = tag.link.replace('http://localhost:4000/',''); %>
+                  <% tag.link += tag.link.indexOf('htm') > 0 ? '' : '/index.html'; %>
+                  <a href="../../<%= tag.link %>" title="<%= tag.name %>" class="tag">
                     <%= tag.name %>
                   </a>
                 <% }); %>
@@ -32,11 +35,11 @@
             <% if (post.nextPost && !post.hideInList) { %>
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="<%= post.nextPost.link %>">
-                  <h3 class="post-title">
+                <h3 class="post-title">
+                  <a title="<%= post.nextPost.title %>" href="../../<%= post.nextPost.link %>">
                     <%= post.nextPost.title %>
-                  </h3>
-                </a>
+                  </a>
+                </h3>
               </div>
             <% } %>
 

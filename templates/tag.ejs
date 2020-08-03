@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('./_blocks/head', { siteTitle: `${tag.name} | ${themeConfig.siteName}` }) %>
+    <%- include('./_blocks/head', { siteTitle: `${tag.name} | ${themeConfig.siteName}`, nowHost: '../../' }) %>
   </head>
   <body>
     <div id="app" class="main">
 
-      <%- include('./_blocks/sidebar') %>
+      <%- include('./_blocks/sidebar', { nowHost: '../../' }) %>
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <h2 class="current-tag">标签: <%= tag.name %></h2>
           <% posts.forEach(function(post) { %>
+            <% post.link = "../../" + post.link %>
             <article class="post-item">
               <div class="left">
-                <a href="<%= post.link %>">
-                  <h2 class="post-title"><%= post.title %></h2>
-                </a>
+                <h2 class="post-title">
+                  <a href="<%= post.link %>" title="<%= post.title %>">
+                    <%= post.title %>
+                  </a>
+                </h2>
                 <div class="post-date">
                   <%= post.dateFormat %>
                 </div>
